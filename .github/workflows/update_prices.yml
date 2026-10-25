@@ -2,42 +2,52 @@ name: Update Crypto Prices
 
 on:
   schedule:
-    - cron: "4,9,14,19,24,29,34,39,44,49,54,59 * * * *"
+    - cron: "17 * * * *" # hourly; GitHub scheduled runs are best-effort
   workflow_dispatch:
+
+concurrency:
+  group: crypto-price-update
+  cancel-in-progress: false
 
 jobs:
   update_prices:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 10
     permissions:
       contents: write
 
     steps:
-      # Step 1: Checkout the correct branch
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: main # The action below will push to this branch
+          ref: main
 
-      # ... your setup-python and install steps ...
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.8"
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
+        run: python -m pip install -r requirements.txt -r requirements-dev.txt
 
-      - name: Run enhanced price update script
+      - name: Run tests
+        run: pytest -q
+
+      - name: Update README prices
         run: python update_prices.py
 
-      # Step 4: Commit and push changes if README was updated
       - name: Commit and push changes
         run: |
           git config --local user.email "${{ github.repository_owner }}@users.noreply.github.com"
           git config --local user.name "${{ github.repository_owner }}"
-          git add README.md price_history.json
-          git diff --staged --quiet || git commit -m "🚀 Update crypto prices with enhanced table [$(date '+%Y-%m-%d %H:%M UTC')]"
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore(prices): refresh market table [skip ci]"
           git push

@@ -1,88 +1,199 @@
-import requests
-from datetime import datetime
-from pathlib import Path
-import json
+"""Update README.md with cryptocurrency prices from CoinGecko."""
+
+from __future__ import annotations
+
+import html
+import math
 import os
+import sys
+import tempfile
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
 
-# --- Configuration ---
-COIN_IDS = ['bitcoin', 'ethereum', 'litecoin', 'solana', 'cardano']
-README_FILE = 'README.md'
-START_MARKER = '<!-- PRICE_TABLE_START -->'
-END_MARKER = '<!-- PRICE_TABLE_END -->'
-PRICE_HISTORY_FILE = 'price_history.json'
+import requests
 
-def fetch_crypto_prices(coin_ids):
-    """Fetches prices and 24h change data for cryptocurrencies from CoinGecko."""
-    print(f"Fetching prices for: {', '.join(coin_ids)}")
-    url = 'https://api.coingecko.com/api/v3/simple/price'
+COIN_IDS = ["bitcoin", "ethereum", "litecoin", "solana", "cardano"]
+README_PATH = Path(__file__).resolve().parent / "README.md"
+START_MARKER = "<!-- PRICE_TABLE_START -->"
+END_MARKER = "<!-- PRICE_TABLE_END -->"
+
+API_URL = "https://api.coingecko.com/api/v3/simple/price"
+USER_AGENT = "CryptoPriceList/2.0"
+HTTP_TIMEOUT = (5, 15)
+MAX_ATTEMPTS = 3
+BACKOFF_SECONDS = (1, 2, 4)
+
+
+class PriceFetchError(RuntimeError):
+    """Raised when CoinGecko data cannot be retrieved."""
+
+
+class ReadmeUpdateError(RuntimeError):
+    """Raised when README.md is missing or its price-table markers are invalid."""
+
+
+def _is_number(value: Any) -> bool:
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(value)
+    )
+
+
+def fetch_prices(
+    coin_ids: list[str], session: requests.Session | None = None
+) -> dict[str, dict[str, Any]]:
+    """Fetch prices and 24h changes, retrying transient failures."""
+    client = session or requests.Session()
     params = {
-        'ids': ','.join(coin_ids),
-        'vs_currencies': 'usd',
-        'include_24hr_change': 'true'
+        "ids": ",".join(coin_ids),
+        "vs_currencies": "usd",
+        "include_24hr_change": "true",
+        "include_last_updated_at": "true",
     }
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching prices from API: {e}")
-        return None
 
-
-
-def load_price_history():
-    """Load previous price data for trend calculation."""
-    if os.path.exists(PRICE_HISTORY_FILE):
+    last_error: Exception | None = None
+    for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
-            with open(PRICE_HISTORY_FILE, 'r') as f:
-                return json.load(f)
-        except (json.JSONDecodeError, FileNotFoundError):
-            return {}
-    return {}
+            response = client.get(
+                API_URL,
+                params=params,
+                headers={"User-Agent": USER_AGENT},
+                timeout=HTTP_TIMEOUT,
+            )
+            if response.status_code == 429 or response.status_code >= 500:
+                raise requests.HTTPError(
+                    f"HTTP {response.status_code}", response=response
+                )
+            if 400 <= response.status_code < 500:
+                raise PriceFetchError(f"HTTP {response.status_code}")
+            response.raise_for_status()
+            payload = response.json()
+            if not isinstance(payload, dict):
+                raise ValueError("unexpected response shape")
+            prices = {
+                coin: data
+                for coin, data in payload.items()
+                if isinstance(data, dict)
+            }
+            if not any(_is_number(data.get("usd")) for data in prices.values()):
+                raise ValueError("response contained no usable prices")
+            return prices
+        except PriceFetchError:
+            raise
+        except (requests.RequestException, ValueError) as exc:
+            last_error = exc
+            if attempt == MAX_ATTEMPTS:
+                break
+            delay = BACKOFF_SECONDS[min(attempt - 1, len(BACKOFF_SECONDS) - 1)]
+            error_response = getattr(exc, "response", None)
+            retry_after = (
+                error_response.headers.get("Retry-After")
+                if error_response is not None
+                else None
+            )
+            if retry_after and str(retry_after).isdigit():
+                delay = min(int(retry_after), 30)
+            print(
+                f"Fetch attempt {attempt}/{MAX_ATTEMPTS} failed: {exc}; "
+                f"retrying in {delay}s",
+                file=sys.stderr,
+            )
+            time.sleep(delay)
 
-def save_price_history(prices):
-    """Save current prices to history file."""
-    history = load_price_history()
-    timestamp = datetime.utcnow().isoformat()
-    
-    for coin, data in prices.items():
-        if coin not in history:
-            history[coin] = []
-        
-        # Keep only last 10 entries to avoid file bloat
-        if len(history[coin]) >= 10:
-            history[coin] = history[coin][-9:]
-        
-        history[coin].append({
-            'timestamp': timestamp,
-            'price': data.get('usd', 0),
-            'change_24h': data.get('usd_24h_change', 0)
-        })
-    
-    with open(PRICE_HISTORY_FILE, 'w') as f:
-        json.dump(history, f, indent=2)
+    raise PriceFetchError(
+        f"could not fetch prices after {MAX_ATTEMPTS} attempts: {last_error}"
+    )
 
-def get_trend_indicator(change_24h):
-    """Get trend indicator based on 24h change."""
-    if change_24h > 5:
-        return "🚀", "#00ff00"  # Strong up
-    elif change_24h > 0:
-        return "📈", "#90EE90"  # Up
-    elif change_24h > -5:
-        return "📉", "#FFB6C1"  # Down
-    else:
-        return "💥", "#ff0000"  # Strong down
 
-def generate_enhanced_table(prices, coin_ids):
-    """Generate an enhanced HTML table with trends and styling."""
-    if not prices:
-        return "<p>❌ No price data available</p>"
-    
-    current_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')
-    
-    # Table header with enhanced styling
-    table_html = f"""
-<div align="center">
+def format_price(price: Any) -> str:
+    """Format a USD price for display."""
+    if not _is_number(price) or price <= 0:
+        return "N/A"
+    if price >= 1000:
+        return f"${price:,.0f}"
+    if price >= 1:
+        return f"${price:,.2f}"
+    return f"${price:.4f}"
+
+
+def classify_change(change: Any) -> tuple[str, str]:
+    """Return the trend emoji and status label for a 24h change."""
+    if not _is_number(change):
+        return "❔", "NO DATA"
+    if change >= 5:
+        return "🚀", "HOT"
+    if change > 0.5:
+        return "📈", "UP"
+    if change >= -0.5:
+        return "➖", "FLAT"
+    if change >= -5:
+        return "📉", "DOWN"
+    return "💥", "COLD"
+
+
+def render_table(
+    prices: dict[str, dict[str, Any]],
+    coin_ids: list[str],
+    now: datetime | None = None,
+) -> str:
+    """Render the price table that is inserted into README.md."""
+    now = now or datetime.now(timezone.utc)
+    rows: list[str] = []
+    changes: list[float] = []
+    data_timestamps: list[float] = []
+    tracked = 0
+
+    for coin_id in coin_ids:
+        data = prices.get(coin_id, {})
+        price = data.get("usd")
+        change = data.get("usd_24h_change")
+        name = html.escape(coin_id.replace("-", " ").title())
+
+        if _is_number(data.get("last_updated_at")):
+            data_timestamps.append(float(data["last_updated_at"]))
+
+        if _is_number(price) and price > 0:
+            tracked += 1
+            if _is_number(change):
+                change_text = f"{change:+.2f}%"
+                changes.append(float(change))
+            else:
+                change_text = "n/a"
+            emoji, status = classify_change(change)
+            rows.append(
+                "<tr>\n"
+                f"<td><strong>{name}</strong></td>\n"
+                f'<td align="right"><code>{format_price(price)}</code></td>\n'
+                f'<td align="right"><strong>{change_text}</strong></td>\n'
+                f'<td align="center">{emoji}</td>\n'
+                f'<td align="center">{status}</td>\n'
+                "</tr>"
+            )
+        else:
+            rows.append(
+                "<tr>\n"
+                f"<td><strong>{name}</strong></td>\n"
+                '<td align="right"><code>N/A</code></td>\n'
+                '<td align="right">--</td>\n'
+                '<td align="center">❔</td>\n'
+                '<td align="center">NO DATA</td>\n'
+                "</tr>"
+            )
+
+    average = f"{sum(changes) / len(changes):+.2f}%" if changes else "n/a"
+    data_time = (
+        datetime.fromtimestamp(max(data_timestamps), tz=timezone.utc)
+        if data_timestamps
+        else now
+    )
+    data_time_text = data_time.strftime("%Y-%m-%d %H:%M UTC")
+    checked_time = now.strftime("%Y-%m-%d %H:%M UTC")
+    rows_html = "\n".join(rows)
+
+    return f"""<div align="center">
 
 ### 💰 Live Cryptocurrency Prices
 
@@ -97,161 +208,115 @@ def generate_enhanced_table(prices, coin_ids):
 </tr>
 </thead>
 <tbody>
-"""
-    
-    for coin in coin_ids:
-        coin_data = prices.get(coin, {})
-        price = coin_data.get('usd')
-        change_24h = coin_data.get('usd_24h_change', 0)
-        
-        # Format coin name
-        coin_name = coin.replace('-', ' ').title()
-        
-        if price:
-            # Format price with appropriate precision
-            if price >= 1000:
-                price_str = f"${price:,.0f}"
-            elif price >= 1:
-                price_str = f"${price:,.2f}"
-            else:
-                price_str = f"${price:.4f}"
-            
-            # Format 24h change
-            change_str = f"{change_24h:+.2f}%" if change_24h else "0.00%"
-            change_color = "#00ff00" if change_24h > 0 else "#ff0000" if change_24h < 0 else "#888888"
-            
-            # Get trend indicator
-            trend_emoji, trend_color = get_trend_indicator(change_24h)
-            
-            # Status indicator
-            if change_24h > 2:
-                status = "🔥 HOT"
-            elif change_24h > 0:
-                status = "✅ UP"
-            elif change_24h > -2:
-                status = "⚡ STABLE"
-            else:
-                status = "❄️ COLD"
-            
-            table_html += f"""
-<tr>
-<td><strong>{coin_name}</strong></td>
-<td align="right"><code>{price_str}</code></td>
-<td align="right" style="color: {change_color}"><strong>{change_str}</strong></td>
-<td align="center">{trend_emoji}</td>
-<td align="center">{status}</td>
-</tr>
-"""
-        else:
-            table_html += f"""
-<tr>
-<td><strong>{coin_name}</strong></td>
-<td align="right"><code>N/A</code></td>
-<td align="right">--</td>
-<td align="center">❓</td>
-<td align="center">⚠️ ERROR</td>
-</tr>
-"""
-    
-    # Table footer with timestamp and stats
-    total_coins = len([c for c in coin_ids if prices.get(c, {}).get('usd')])
-    avg_change = sum([prices.get(c, {}).get('usd_24h_change', 0) for c in coin_ids if prices.get(c, {}).get('usd_24h_change')]) / max(1, total_coins)
-    
-    table_html += f"""
+{rows_html}
 </tbody>
 </table>
 
 ---
 
-**📊 Market Summary:** {total_coins}/{len(coin_ids)} coins tracked | **📈 Avg 24h Change:** {avg_change:+.2f}%  
-**🕐 Last Updated:** {current_time} | **🔄 Auto-updates every ~5 minutes**
+**📊 Market Summary:** {tracked}/{len(coin_ids)} coins tracked | **📈 Avg 24h Change:** {average}  
+**🕐 Data as of:** {data_time_text} | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** {checked_time}
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
-</div>
-"""
-    
-    return table_html
+</div>"""
 
-def update_readme(table_content):
-    """Update README.md with the new price table."""
-    try:
-        with open(README_FILE, 'r', encoding='utf-8') as file:
-            content = file.read()
-        
-        # Find markers
-        start_index = content.find(START_MARKER)
-        end_index = content.find(END_MARKER)
-        
-        if start_index == -1 or end_index == -1:
-            print(f"Error: Could not find markers {START_MARKER} and {END_MARKER} in {README_FILE}")
-            return False
-        
-        # Replace content between markers
-        new_content = (
-            content[:start_index + len(START_MARKER)] + 
-            "\n" + table_content + "\n" +
-            content[end_index:]
+
+def display_prices(
+    prices: dict[str, dict[str, Any]],
+    coin_ids: list[str],
+    now: datetime | None = None,
+) -> None:
+    """Print the current prices to the console."""
+    now = now or datetime.now(timezone.utc)
+    print("\n" + "=" * 60)
+    print("🚀 CRYPTOCURRENCY PRICE TRACKER 🚀")
+    print("=" * 60)
+
+    for coin_id in coin_ids:
+        data = prices.get(coin_id, {})
+        price = data.get("usd")
+        change = data.get("usd_24h_change")
+        emoji, _ = classify_change(change)
+        change_text = f"({change:+.2f}%)" if _is_number(change) else "(n/a)"
+        name = coin_id.replace("-", " ").title()
+        print(f"{emoji} {name:<12}: {format_price(price):>12} {change_text}")
+
+    print(f"\n🕐 Last checked: {now.strftime('%Y-%m-%d %H:%M UTC')}")
+    print("=" * 60 + "\n")
+
+
+def splice_readme(content: str, table: str) -> str:
+    """Replace the content between the price-table markers."""
+    if content.count(START_MARKER) != 1 or content.count(END_MARKER) != 1:
+        raise ReadmeUpdateError(
+            "README must contain exactly one pair of price-table markers"
         )
-        
-        with open(README_FILE, 'w', encoding='utf-8') as file:
-            file.write(new_content)
-        
-        print(f"✅ Successfully updated {README_FILE} with enhanced price table")
-        return True
-        
-    except FileNotFoundError:
-        print(f"Error: {README_FILE} not found")
+
+    start = content.index(START_MARKER) + len(START_MARKER)
+    end = content.index(END_MARKER)
+    if start >= end:
+        raise ReadmeUpdateError("price-table markers are out of order")
+
+    return f"{content[:start]}\n\n{table.strip()}\n\n{content[end:]}"
+
+
+def _write_text_atomic(path: Path, content: str) -> None:
+    fd, tmp_name = tempfile.mkstemp(
+        dir=path.parent, prefix=f".{path.name}.", text=True
+    )
+    tmp_path = Path(tmp_name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            handle.write(content)
+        if path.exists():
+            os.chmod(tmp_path, path.stat().st_mode & 0o777)
+        os.replace(tmp_path, path)
+    except BaseException:
+        tmp_path.unlink(missing_ok=True)
+        raise
+
+
+def update_readme(table: str, path: Path | None = None) -> bool:
+    """Write the table to README.md, returning whether the file changed."""
+    path = path or README_PATH
+    try:
+        content = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise ReadmeUpdateError(f"could not read {path}: {exc}") from exc
+
+    updated = splice_readme(content, table)
+    if updated == content:
         return False
-    except Exception as e:
-        print(f"Error updating {README_FILE}: {e}")
-        return False
 
-def display_prices(prices, coin_ids):
-    """Display current cryptocurrency prices to console."""
-    if not prices:
-        print("No price data available.")
-        return
-    
-    print("\n" + "="*60)
-    print("🚀 ENHANCED CRYPTOCURRENCY PRICE TRACKER 🚀")
-    print("="*60)
-    
-    for coin in coin_ids:
-        coin_data = prices.get(coin, {})
-        price = coin_data.get('usd')
-        change_24h = coin_data.get('usd_24h_change', 0)
-        coin_name = coin.replace('-', ' ').title()
-        
-        if price:
-            trend_emoji, _ = get_trend_indicator(change_24h)
-            change_str = f"({change_24h:+.2f}%)"
-            print(f"{trend_emoji} {coin_name:<12}: ${price:>10,.2f} {change_str}")
-        else:
-            print(f"❓ {coin_name:<12}: {'N/A':>10} (--%)")
-    
-    current_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')
-    print(f"\n🕐 Last Updated: {current_time}")
-    print("="*60 + "\n")
+    try:
+        _write_text_atomic(path, updated)
+    except OSError as exc:
+        raise ReadmeUpdateError(f"could not write {path}: {exc}") from exc
+    return True
 
-def main():
-    """Main function to run the script."""
-    prices = fetch_crypto_prices(COIN_IDS)
-    
-    if prices:
-        # Save price history for trend analysis
-        save_price_history(prices)
-        
-        # Generate enhanced table
-        table_content = generate_enhanced_table(prices, COIN_IDS)
-        
-        # Update README with the table
-        update_readme(table_content)
-        
-        # Also display to console
-        display_prices(prices, COIN_IDS)
-    else:
-        print("❌ Failed to fetch price data")
 
-if __name__ == '__main__':
-    main()
+def main() -> int:
+    """Fetch prices and update README.md."""
+    try:
+        prices = fetch_prices(COIN_IDS)
+    except PriceFetchError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+
+    now = datetime.now(timezone.utc)
+    table = render_table(prices, COIN_IDS, now=now)
+    try:
+        changed = update_readme(table)
+    except ReadmeUpdateError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+
+    display_prices(prices, COIN_IDS, now=now)
+    print("README updated." if changed else "README already up to date.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

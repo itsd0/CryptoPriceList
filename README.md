@@ -1,17 +1,17 @@
 # 🚀 CryptoPriceList
 
-A beautiful, automated cryptocurrency price tracker that displays live prices with trends, charts, and percentage changes directly in your README using GitHub Actions.
+A self-updating cryptocurrency price table for your GitHub README. A scheduled GitHub Action fetches prices and 24-hour changes from CoinGecko, regenerates the table, and commits it back to the repository — no server and no API key.
 
 ## Features
 
-- 🚀 **Automated Updates**: Prices updated every 5-6 minutes using GitHub Actions
-- 📊 **Enhanced Table**: Beautiful table with trends, 24h changes, and status indicators
-- 📈 **Visual Trends**: Emoji indicators showing price movements and market status
-- 🎯 **Smart Status**: HOT/COLD indicators based on price performance
-- 💰 **Live Display**: Real-time prices shown directly in your repository README
-- 🔧 **Customizable**: Easy to modify which cryptocurrencies to track
-- 📱 **Mobile Friendly**: Responsive table design that works on all devices
+- 🤖 **Automated Updates**: Refreshed hourly via GitHub Actions (best effort; GitHub may delay scheduled runs)
+- 📊 **Readable Table**: USD prices, 24h changes, and consistent trend/status labels
+- 📈 **Clear Signals**: Emoji and status indicators derived from one set of thresholds
+- 🔧 **Customizable**: Change the tracked coins in `update_prices.py`
+- 🛡️ **Failure-Safe**: Network timeouts, retries, tests before writing, and failed runs leave the README untouched
+- 💻 **README Display**: Prices shown directly in this repository's README
 - 🆓 **Free to Use**: No API keys required, runs entirely on GitHub
+- 🧪 **Tested**: Offline unit tests run on every push and pull request
 
 ## Tracked Cryptocurrencies
 
@@ -38,54 +38,49 @@ A beautiful, automated cryptocurrency price tracker that displays live prices wi
 </tr>
 </thead>
 <tbody>
-
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$80,723</code></td>
-<td align="right" style="color: #00ff00"><strong>+0.05%</strong></td>
-<td align="center">📈</td>
-<td align="center">✅ UP</td>
+<td align="right"><code>$79,908</code></td>
+<td align="right"><strong>-1.14%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
-
 <tr>
 <td><strong>Ethereum</strong></td>
-<td align="right"><code>$2,356</code></td>
-<td align="right" style="color: #ff0000"><strong>-0.66%</strong></td>
+<td align="right"><code>$2,318</code></td>
+<td align="right"><strong>-1.63%</strong></td>
 <td align="center">📉</td>
-<td align="center">⚡ STABLE</td>
+<td align="center">DOWN</td>
 </tr>
-
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$57.03</code></td>
-<td align="right" style="color: #00ff00"><strong>+0.03%</strong></td>
-<td align="center">📈</td>
-<td align="center">✅ UP</td>
+<td align="right"><code>$56.56</code></td>
+<td align="right"><strong>-0.66%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
-
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$102.25</code></td>
-<td align="right" style="color: #00ff00"><strong>+0.09%</strong></td>
-<td align="center">📈</td>
-<td align="center">✅ UP</td>
+<td align="right"><code>$100.85</code></td>
+<td align="right"><strong>-1.42%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
-
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.2086</code></td>
-<td align="right" style="color: #ff0000"><strong>-0.81%</strong></td>
+<td align="right"><code>$0.2029</code></td>
+<td align="right"><strong>-2.45%</strong></td>
 <td align="center">📉</td>
-<td align="center">⚡ STABLE</td>
+<td align="center">DOWN</td>
 </tr>
-
 </tbody>
 </table>
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** -0.26%  
-**🕐 Last Updated:** 2026-10-25 01:38 UTC | **🔄 Auto-updates every ~5 minutes**
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** -1.46%  
+**🕐 Data as of:** 2026-10-25 23:49 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-10-25 23:49 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
@@ -108,21 +103,21 @@ A beautiful, automated cryptocurrency price tracker that displays live prices wi
 1. Go to **your forked repository** (not this one)
 2. Click on the **"Actions" tab**
 3. Click **"I understand my workflows, go ahead and enable them"**
-4. The automation will start working immediately!
+4. The workflow is scheduled hourly; you can also run it manually at any time
 
 ### Step 3: Verify It's Working
 
 1. Go to the **"Actions" tab** in your fork
 2. You should see the **"Update Crypto Prices"** workflow
 3. Click on a completed workflow run to view the logs
-4. If you see formatted price data in the logs, congratulations! 🎉
+4. Scheduled runs are best-effort; if no run has happened yet, use **Run workflow** to trigger one
 
 ### Step 4: Customize Your Tracker (Optional)
 
 **Want to track different cryptocurrencies?**
 
 1. Edit the `update_prices.py` file in your fork
-2. Find the `COIN_IDS` list (around line 6)
+2. Find the `COIN_IDS` list near the top of the file
 3. Replace with your preferred coins from [CoinGecko's list](https://api.coingecko.com/api/v3/coins/list)
 4. Save and commit - GitHub Actions will handle the rest!
 
@@ -146,30 +141,40 @@ COIN_IDS = ['bitcoin', 'ethereum', 'dogecoin', 'chainlink', 'polygon']
 
 **Workflow not running?**
 
-- ✅ Check if GitHub Actions are enabled
-- ✅ Look for error messages in the Actions tab
-- ✅ Verify the workflow completed successfully
-- ✅ Check if the price table appears in your README
+- Check that GitHub Actions are enabled for the repository
+- Scheduled workflows are best-effort; GitHub may delay or skip runs under load. Trigger a run manually from the Actions tab if needed
+- Open the latest run and check which step failed
+
+**Workflow failing?**
+
+- A failed CoinGecko request, a missing marker, or a failed test intentionally fails the run and leaves the README unchanged
+- Re-run the workflow from the Actions tab; transient API failures are retried automatically
+- If CoinGecko is rate-limiting the runner, wait and retry
+
+**Table not changing?**
+
+- The workflow commits only when the generated table changes. Prices can be unchanged, or the run may have failed
+- Check the run logs for the generated table and timestamps
 
 **Want to add more coins?**
 
-- ✅ Use exact coin IDs from [CoinGecko API](https://api.coingecko.com/api/v3/coins/list)
-- ✅ Keep the format: `['coin1', 'coin2', 'coin3']`
+- Use exact coin IDs from [CoinGecko API](https://api.coingecko.com/api/v3/coins/list)
+- Keep the format: `['coin1', 'coin2', 'coin3']`
 
 ## How It Works
 
-1. **GitHub Actions Workflow**: Runs automatically every 5-6 minutes
-2. **API Call**: Fetches latest prices and 24h change data from CoinGecko
-3. **Enhanced Processing**: Generates beautiful table with trends and status indicators
-4. **README Update**: Automatically updates the price table in your README
-5. **Price History**: Maintains recent price history for trend analysis
-6. **Auto Commit**: Commits changes with timestamped messages
+1. **GitHub Actions Workflow**: Runs hourly on a best-effort schedule and can be triggered manually
+2. **API Call**: Fetches prices, 24h changes, and the last-updated timestamp from CoinGecko, with timeouts and retries
+3. **Validation**: Checks the response and renders the table; missing coins are shown as `N/A` instead of crashing
+4. **README Update**: Replaces only the content between the price-table markers
+5. **Commit**: Runs the test suite, then commits `README.md` only when the table changed
+6. **Failure Handling**: A failed fetch or invalid markers exits nonzero, so the Actions run shows as failed
 
 ## Requirements
 
 - No API keys needed
-- No local setup required (runs on GitHub)
-- Python 3.8+ (handled by GitHub Actions)
+- No local setup required for GitHub-hosted updates
+- Python 3.12 (used by GitHub Actions)
 
 ## 💻 Local Development
 
@@ -180,19 +185,21 @@ COIN_IDS = ['bitcoin', 'ethereum', 'dogecoin', 'chainlink', 'polygon']
 git clone https://github.com/yourusername/CryptoPriceList.git
 cd CryptoPriceList
 
-# Install dependencies
-pip install -r requirements.txt
+# Install runtime and test dependencies
+pip install -r requirements.txt -r requirements-dev.txt
 
-# Run the script manually
+# Run the tests
+pytest -q
+
+# Fetch live prices and update README.md
 python update_prices.py
 ```
 
 **For development:**
 
-- The script will display enhanced prices in your terminal AND update README.md
-- Test your changes locally before pushing to GitHub
-- GitHub Actions will run the price updates once you push changes
-- Local runs will create/update `price_history.json` for trend analysis
+- The script prints prices to the terminal and updates `README.md` in place; review changes with `git diff`
+- Run `pytest -q` before pushing; the same tests run in the update workflow
+- A failed CoinGecko request exits 1; invalid README markers exit 2
 
 ## 📁 File Structure
 
@@ -200,21 +207,31 @@ python update_prices.py
 CryptoPriceList/
 ├── .github/
 │   └── workflows/
-│       └── update_prices.yml    # 🤖 GitHub Actions automation
-├── update_prices.py             # 🐍 Enhanced price tracker script
-├── requirements.txt             # 📦 Python dependencies
-├── price_history.json           # 📊 Price history for trend analysis
+│       ├── update_prices.yml    # 🤖 Hourly price update
+│       └── tests.yml            # 🧪 Offline test suite
+├── tests/
+│   └── test_update_prices.py    # Fetcher, renderer, and README tests
+├── update_prices.py             # 🐍 Price tracker script
+├── requirements.txt             # 📦 Runtime dependencies
+├── requirements-dev.txt         # 📦 Test dependencies
+├── pyproject.toml               # ⚙️ Pytest configuration
 ├── README.md                    # 📖 Documentation with live price table
 └── LICENSE                      # ⚖️ MIT License
 ```
 
 **Key Files:**
 
-- `update_prices.py` - Enhanced script that fetches prices, generates beautiful table, and updates README
-- `requirements.txt` - Lists Python dependencies (just `requests`)
-- `.github/workflows/update_prices.yml` - Automates the price updates and commits changes
-- `price_history.json` - Stores recent price history for trend analysis (auto-generated)
-- `README.md` - Project documentation with live-updating enhanced price table
+- `update_prices.py` - Fetches prices, validates data, renders the table, and updates README
+- `tests/test_update_prices.py` - Offline tests for formatting, fetching, retries, and README updates
+- `.github/workflows/update_prices.yml` - Hourly price updates and commits
+- `.github/workflows/tests.yml` - Runs the tests on pushes and pull requests
+- `requirements.txt` / `requirements-dev.txt` - Runtime and test dependencies
+
+## Limitations
+
+- Scheduled workflows are best-effort. GitHub can delay or skip runs, so "hourly" is a target, not a guarantee.
+- Prices come from CoinGecko's public API and can be delayed. They are for informational purposes only, not financial advice.
+- The workflow commits at most once per run; an unchanged table produces no commit.
 
 ## Contributing
 
