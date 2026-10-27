@@ -40,36 +40,36 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$79,977</code></td>
-<td align="right"><strong>+0.42%</strong></td>
-<td align="center">➖</td>
-<td align="center">FLAT</td>
+<td align="right"><code>$79,547</code></td>
+<td align="right"><strong>-0.63%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Ethereum</strong></td>
-<td align="right"><code>$2,319</code></td>
-<td align="right"><strong>+0.25%</strong></td>
-<td align="center">➖</td>
-<td align="center">FLAT</td>
+<td align="right"><code>$2,305</code></td>
+<td align="right"><strong>-0.61%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$56.57</code></td>
-<td align="right"><strong>+0.12%</strong></td>
+<td align="right"><code>$56.33</code></td>
+<td align="right"><strong>+0.34%</strong></td>
 <td align="center">➖</td>
 <td align="center">FLAT</td>
 </tr>
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$100.51</code></td>
-<td align="right"><strong>-0.46%</strong></td>
-<td align="center">➖</td>
-<td align="center">FLAT</td>
+<td align="right"><code>$99.65</code></td>
+<td align="right"><strong>-0.97%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.2050</code></td>
-<td align="right"><strong>+1.42%</strong></td>
+<td align="right"><code>$0.2038</code></td>
+<td align="right"><strong>+0.79%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
@@ -78,9 +78,9 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +0.35%  
-**🕐 Data as of:** 2026-10-27 02:02 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-10-27 02:02 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** -0.22%  
+**🕐 Data as of:** 2026-10-27 07:47 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-10-27 07:47 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
