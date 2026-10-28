@@ -40,47 +40,47 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$80,973</code></td>
+<td align="right"><code>$81,234</code></td>
 <td align="right"><strong>+0.53%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Ethereum</strong></td>
-<td align="right"><code>$2,355</code></td>
-<td align="right"><strong>+0.50%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
+<td align="right"><code>$2,359</code></td>
+<td align="right"><strong>+0.47%</strong></td>
+<td align="center">➖</td>
+<td align="center">FLAT</td>
 </tr>
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$58.53</code></td>
-<td align="right"><strong>+3.29%</strong></td>
+<td align="right"><code>$59.21</code></td>
+<td align="right"><strong>+3.84%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$102.06</code></td>
-<td align="right"><strong>+1.16%</strong></td>
+<td align="right"><code>$102.40</code></td>
+<td align="right"><strong>+1.23%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.2041</code></td>
-<td align="right"><strong>-0.55%</strong></td>
-<td align="center">📉</td>
-<td align="center">DOWN</td>
+<td align="right"><code>$0.2058</code></td>
+<td align="right"><strong>+0.26%</strong></td>
+<td align="center">➖</td>
+<td align="center">FLAT</td>
 </tr>
 </tbody>
 </table>
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +0.99%  
-**🕐 Data as of:** 2026-10-28 18:50 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-10-28 18:50 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +1.26%  
+**🕐 Data as of:** 2026-10-28 23:11 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-10-28 23:12 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
