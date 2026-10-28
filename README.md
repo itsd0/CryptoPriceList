@@ -40,47 +40,47 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$80,824</code></td>
-<td align="right"><strong>+1.38%</strong></td>
+<td align="right"><code>$80,709</code></td>
+<td align="right"><strong>+0.59%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Ethereum</strong></td>
-<td align="right"><code>$2,352</code></td>
-<td align="right"><strong>+1.91%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
+<td align="right"><code>$2,339</code></td>
+<td align="right"><strong>+0.33%</strong></td>
+<td align="center">➖</td>
+<td align="center">FLAT</td>
 </tr>
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$57.44</code></td>
-<td align="right"><strong>+2.10%</strong></td>
+<td align="right"><code>$57.33</code></td>
+<td align="right"><strong>+1.32%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$101.84</code></td>
-<td align="right"><strong>+2.06%</strong></td>
+<td align="right"><code>$101.53</code></td>
+<td align="right"><strong>+0.89%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.2062</code></td>
-<td align="right"><strong>+1.37%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
+<td align="right"><code>$0.2035</code></td>
+<td align="right"><strong>-0.65%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
 </tbody>
 </table>
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +1.76%  
-**🕐 Data as of:** 2026-10-28 05:35 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-10-28 05:35 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +0.50%  
+**🕐 Data as of:** 2026-10-28 12:47 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-10-28 12:47 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
