@@ -40,47 +40,47 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$81,201</code></td>
-<td align="right"><strong>+0.99%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
-</tr>
-<tr>
-<td><strong>Ethereum</strong></td>
-<td align="right"><code>$2,354</code></td>
-<td align="right"><strong>+1.12%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
-</tr>
-<tr>
-<td><strong>Litecoin</strong></td>
-<td align="right"><code>$58.37</code></td>
-<td align="right"><strong>-0.81%</strong></td>
+<td align="right"><code>$79,119</code></td>
+<td align="right"><strong>-2.62%</strong></td>
 <td align="center">📉</td>
 <td align="center">DOWN</td>
 </tr>
 <tr>
+<td><strong>Ethereum</strong></td>
+<td align="right"><code>$2,272</code></td>
+<td align="right"><strong>-3.81%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
+</tr>
+<tr>
+<td><strong>Litecoin</strong></td>
+<td align="right"><code>$55.47</code></td>
+<td align="right"><strong>-6.66%</strong></td>
+<td align="center">💥</td>
+<td align="center">COLD</td>
+</tr>
+<tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$101.86</code></td>
-<td align="right"><strong>+1.05%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
+<td align="right"><code>$97.26</code></td>
+<td align="right"><strong>-5.13%</strong></td>
+<td align="center">💥</td>
+<td align="center">COLD</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.2053</code></td>
-<td align="right"><strong>+2.00%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
+<td align="right"><code>$0.1933</code></td>
+<td align="right"><strong>-6.47%</strong></td>
+<td align="center">💥</td>
+<td align="center">COLD</td>
 </tr>
 </tbody>
 </table>
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +0.87%  
-**🕐 Data as of:** 2026-10-29 16:54 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-10-29 16:54 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** -4.93%  
+**🕐 Data as of:** 2026-10-29 21:47 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-10-29 21:47 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
