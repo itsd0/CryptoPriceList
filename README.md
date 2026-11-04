@@ -40,36 +40,36 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$77,795</code></td>
-<td align="right"><strong>+1.39%</strong></td>
+<td align="right"><code>$77,740</code></td>
+<td align="right"><strong>+1.75%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Ethereum</strong></td>
 <td align="right"><code>$2,290</code></td>
-<td align="right"><strong>+1.69%</strong></td>
+<td align="right"><strong>+2.19%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$54.65</code></td>
-<td align="right"><strong>+1.68%</strong></td>
+<td align="right"><code>$54.15</code></td>
+<td align="right"><strong>+0.90%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$93.40</code></td>
-<td align="right"><strong>+1.69%</strong></td>
+<td align="right"><code>$92.74</code></td>
+<td align="right"><strong>+1.47%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.1909</code></td>
-<td align="right"><strong>+1.15%</strong></td>
+<td align="right"><code>$0.1899</code></td>
+<td align="right"><strong>+1.40%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
@@ -78,9 +78,9 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +1.52%  
-**🕐 Data as of:** 2026-11-03 23:17 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-11-03 23:17 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +1.54%  
+**🕐 Data as of:** 2026-11-04 06:11 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-11-04 06:11 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
