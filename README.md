@@ -40,36 +40,36 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$72,912</code></td>
-<td align="right"><strong>-2.31%</strong></td>
+<td align="right"><code>$73,599</code></td>
+<td align="right"><strong>-1.99%</strong></td>
 <td align="center">📉</td>
 <td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Ethereum</strong></td>
-<td align="right"><code>$2,019</code></td>
-<td align="right"><strong>-4.72%</strong></td>
+<td align="right"><code>$2,046</code></td>
+<td align="right"><strong>-3.96%</strong></td>
 <td align="center">📉</td>
 <td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$49.87</code></td>
-<td align="right"><strong>-3.10%</strong></td>
+<td align="right"><code>$50.42</code></td>
+<td align="right"><strong>-1.83%</strong></td>
 <td align="center">📉</td>
 <td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$82.08</code></td>
-<td align="right"><strong>-5.02%</strong></td>
-<td align="center">💥</td>
-<td align="center">COLD</td>
+<td align="right"><code>$82.72</code></td>
+<td align="right"><strong>-4.42%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.1718</code></td>
-<td align="right"><strong>-3.62%</strong></td>
+<td align="right"><code>$0.1732</code></td>
+<td align="right"><strong>-2.43%</strong></td>
 <td align="center">📉</td>
 <td align="center">DOWN</td>
 </tr>
@@ -78,9 +78,9 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** -3.75%  
-**🕐 Data as of:** 2026-11-10 17:46 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-11-10 17:46 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** -2.93%  
+**🕐 Data as of:** 2026-11-10 23:16 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-11-10 23:16 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
