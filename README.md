@@ -40,47 +40,47 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$64,395</code></td>
-<td align="right"><strong>-1.48%</strong></td>
+<td align="right"><code>$64,386</code></td>
+<td align="right"><strong>-0.80%</strong></td>
 <td align="center">📉</td>
 <td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Ethereum</strong></td>
 <td align="right"><code>$1,804</code></td>
-<td align="right"><strong>-1.58%</strong></td>
+<td align="right"><strong>-1.32%</strong></td>
 <td align="center">📉</td>
 <td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$44.79</code></td>
-<td align="right"><strong>-0.18%</strong></td>
-<td align="center">➖</td>
-<td align="center">FLAT</td>
+<td align="right"><code>$44.60</code></td>
+<td align="right"><strong>-0.71%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$73.62</code></td>
-<td align="right"><strong>+2.18%</strong></td>
+<td align="right"><code>$74.78</code></td>
+<td align="right"><strong>+2.68%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.1539</code></td>
-<td align="right"><strong>+0.09%</strong></td>
-<td align="center">➖</td>
-<td align="center">FLAT</td>
+<td align="right"><code>$0.1534</code></td>
+<td align="right"><strong>-0.62%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
 </tbody>
 </table>
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** -0.19%  
-**🕐 Data as of:** 2026-11-17 22:17 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-11-17 22:17 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** -0.15%  
+**🕐 Data as of:** 2026-11-18 04:15 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-11-18 04:15 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
