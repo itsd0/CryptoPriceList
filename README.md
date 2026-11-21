@@ -40,36 +40,36 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$60,134</code></td>
-<td align="right"><strong>+1.32%</strong></td>
+<td align="right"><code>$60,104</code></td>
+<td align="right"><strong>+1.81%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Ethereum</strong></td>
-<td align="right"><code>$1,683</code></td>
-<td align="right"><strong>+3.07%</strong></td>
+<td align="right"><code>$1,681</code></td>
+<td align="right"><strong>+3.67%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$40.04</code></td>
-<td align="right"><strong>+0.09%</strong></td>
-<td align="center">➖</td>
-<td align="center">FLAT</td>
+<td align="right"><code>$39.69</code></td>
+<td align="right"><strong>-2.25%</strong></td>
+<td align="center">📉</td>
+<td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$70.67</code></td>
-<td align="right"><strong>+2.24%</strong></td>
+<td align="right"><code>$70.19</code></td>
+<td align="right"><strong>+1.36%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.1455</code></td>
-<td align="right"><strong>+4.20%</strong></td>
+<td align="right"><code>$0.1441</code></td>
+<td align="right"><strong>+0.66%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
@@ -78,9 +78,9 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +2.18%  
-**🕐 Data as of:** 2026-11-21 17:27 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-11-21 17:27 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +1.05%  
+**🕐 Data as of:** 2026-11-21 23:10 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-11-21 23:10 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
