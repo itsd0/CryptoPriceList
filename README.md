@@ -40,47 +40,47 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$60,454</code></td>
-<td align="right"><strong>-1.02%</strong></td>
+<td align="right"><code>$59,716</code></td>
+<td align="right"><strong>-4.80%</strong></td>
 <td align="center">📉</td>
 <td align="center">DOWN</td>
 </tr>
 <tr>
 <td><strong>Ethereum</strong></td>
-<td align="right"><code>$1,702</code></td>
-<td align="right"><strong>-1.34%</strong></td>
-<td align="center">📉</td>
-<td align="center">DOWN</td>
+<td align="right"><code>$1,676</code></td>
+<td align="right"><strong>-5.39%</strong></td>
+<td align="center">💥</td>
+<td align="center">COLD</td>
 </tr>
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$41.58</code></td>
-<td align="right"><strong>+3.03%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
+<td align="right"><code>$39.95</code></td>
+<td align="right"><strong>-6.24%</strong></td>
+<td align="center">💥</td>
+<td align="center">COLD</td>
 </tr>
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$71.72</code></td>
-<td align="right"><strong>+0.65%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
+<td align="right"><code>$68.80</code></td>
+<td align="right"><strong>-8.89%</strong></td>
+<td align="center">💥</td>
+<td align="center">COLD</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.1486</code></td>
-<td align="right"><strong>+2.83%</strong></td>
-<td align="center">📈</td>
-<td align="center">UP</td>
+<td align="right"><code>$0.1429</code></td>
+<td align="right"><strong>-6.72%</strong></td>
+<td align="center">💥</td>
+<td align="center">COLD</td>
 </tr>
 </tbody>
 </table>
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +0.83%  
-**🕐 Data as of:** 2026-11-24 04:45 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-11-24 04:45 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** -6.41%  
+**🕐 Data as of:** 2026-11-24 15:49 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-11-24 15:50 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
