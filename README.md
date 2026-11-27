@@ -40,36 +40,36 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 <tbody>
 <tr>
 <td><strong>Bitcoin</strong></td>
-<td align="right"><code>$60,562</code></td>
-<td align="right"><strong>+0.84%</strong></td>
+<td align="right"><code>$61,365</code></td>
+<td align="right"><strong>+0.78%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Ethereum</strong></td>
-<td align="right"><code>$1,696</code></td>
-<td align="right"><strong>+0.88%</strong></td>
+<td align="right"><code>$1,730</code></td>
+<td align="right"><strong>+1.79%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Litecoin</strong></td>
-<td align="right"><code>$44.11</code></td>
-<td align="right"><strong>+4.05%</strong></td>
+<td align="right"><code>$44.55</code></td>
+<td align="right"><strong>+1.80%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Solana</strong></td>
-<td align="right"><code>$71.14</code></td>
-<td align="right"><strong>+0.96%</strong></td>
+<td align="right"><code>$72.65</code></td>
+<td align="right"><strong>+2.26%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
 <tr>
 <td><strong>Cardano</strong></td>
-<td align="right"><code>$0.1495</code></td>
-<td align="right"><strong>+2.73%</strong></td>
+<td align="right"><code>$0.1514</code></td>
+<td align="right"><strong>+1.72%</strong></td>
 <td align="center">📈</td>
 <td align="center">UP</td>
 </tr>
@@ -78,9 +78,9 @@ A self-updating cryptocurrency price table for your GitHub README. A scheduled G
 
 ---
 
-**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +1.89%  
-**🕐 Data as of:** 2026-11-26 22:18 UTC | **🔄 Refreshed hourly (best effort)**  
-**🤖 Last checked:** 2026-11-26 22:18 UTC
+**📊 Market Summary:** 5/5 coins tracked | **📈 Avg 24h Change:** +1.67%  
+**🕐 Data as of:** 2026-11-27 04:59 UTC | **🔄 Refreshed hourly (best effort)**  
+**🤖 Last checked:** 2026-11-27 05:00 UTC
 
 *Data provided by [CoinGecko API](https://www.coingecko.com/en/api) 🦎*
 
